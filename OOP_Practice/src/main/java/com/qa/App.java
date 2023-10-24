@@ -8,7 +8,35 @@ public class App
 {
     public static void main( String[] args )
     {
-//        object instantiation
+//        oopWalkThrough();
+//        carExample();
+//        stringFormat();
+//        arrays();
+        methodPractice();
+    }
+
+    public static void methodPractice() {
+        Bus redBus = new Bus();
+        redBus.setColour(COLOUR.Red);
+        System.out.println(redBus.requestStop());
+        redBus.setNumberOfDecks(2);
+        System.out.println(redBus);
+        System.out.println("Make is " + redBus.getMake());
+
+        String message = redBus.concreteInheritedMethod("banana");
+        System.out.println(message);
+        System.out.println(redBus.concreteInheritedOverriddenMethod("plum"));
+
+//        Vehicle v = new Vehicle();
+//        System.out.println(v);
+        System.out.println(redBus.abstractMethod("Satsuma"));
+        Car c1 = new Car();
+        System.out.println(c1.abstractMethod("Grapes"));
+
+    }
+
+    private static void oopWalkThrough() {
+        //        object instantiation
         Car sheilasCar;
         sheilasCar = new Car();
         String makeOfSheilasCar = sheilasCar.getMake();
@@ -65,5 +93,44 @@ public class App
         int x = 5, y = 12;
         String result = String.format("X: %d and Y: %d are the same: %b", x, y, x==y);
         System.out.println(result);
+    }
+
+    public static void arrays() {
+        int[] luckyNumbers = new int[4];
+
+//        indexing or subscript notation
+        luckyNumbers[0] = 7;
+        luckyNumbers[1] = 13;
+        luckyNumbers[2] = 21;
+        luckyNumbers[3] = 1;
+//        if going out of bound, will generate an index out of bound exception
+        for (int i = 0; i < luckyNumbers.length; i++) {
+            System.out.println(luckyNumbers[i]);
+        }
+//        'for each' loop: 'enhanced for loop'
+        for (int number : luckyNumbers) {
+            System.out.println(number);
+        }
+
+        String[] food = new String[3];
+        food[0] = "Chicken";
+        food[1] = "Kebabs";
+        food[2] = "Spag Bol";
+
+        for (String item : food) {
+            System.out.println(item);
+        }
+
+        Car[] muppetCars = new Car[2];
+        Car kermitCar = new Car();
+        Car missPiggyCar = new Car();
+        muppetCars[0] = kermitCar;
+        muppetCars[1] = missPiggyCar;
+
+        Car[] cars = {new Car(), new Car("Nissan", "Qashqai")};
+        for (Car c : cars) {
+            c.setAge(2);
+            System.out.println(c);
+        }
     }
 }
