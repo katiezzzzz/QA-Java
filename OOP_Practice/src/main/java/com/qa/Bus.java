@@ -1,6 +1,15 @@
 package com.qa;
 
 public class Bus extends Vehicle{
+    public Bus(){
+        super("Bojo", "Olympian", COLOUR.Red);
+        this.setNumberOfDecks(2);
+    }
+
+    public Bus(String make, String model, COLOUR colour, int numberOfDecks) {
+        super(make, model, colour);
+        this.setNumberOfDecks(numberOfDecks);
+    }
     private int numberOfDecks;
 
     public int getNumberOfDecks() {

@@ -1,5 +1,11 @@
 package com.qa;
 
+import com.qa.exceptions.InvalidStateException;
+import com.qa.timepieces.Clock;
+
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * OOP Practice
  *
@@ -12,7 +18,37 @@ public class App
 //        carExample();
 //        stringFormat();
 //        arrays();
-        methodPractice();
+//        methodPractice();
+//        interfacePractice();
+        exceptionPractice();
+    }
+
+    public static void exceptionPractice() {
+        Car c1 = new Car();
+        try {
+            c1.start("Retina scan");
+        }
+        catch (InvalidStateException ex) {
+            System.out.println(ex.getMessage());
+        }
+        finally {
+            System.out.println("The code always runs");
+        }
+    }
+    public static void interfacePractice() {
+        Car c1 = new Car("Range Rover", "Evoque", COLOUR.Grey);
+        Car c2 = new Car("Cupra", "Formentor", COLOUR.White);
+        Clock digitalClock = new Clock();
+
+//        using the list interface
+//        List<Car> cars = new ArrayList<>();
+//        cars.add(c1);
+//        cars.add(c2);
+
+//        used interface name as type - but can store anything that implements that interface
+        List<Alarmable> alarmsToSet = new ArrayList<>(){
+            {add(c1); add(c2); add(digitalClock);}
+        };
     }
 
     public static void methodPractice() {
@@ -31,8 +67,39 @@ public class App
 //        System.out.println(v);
         System.out.println(redBus.abstractMethod("Satsuma"));
         Car c1 = new Car();
+        Car c2 = new Car();
         System.out.println(c1.abstractMethod("Grapes"));
+        ArrayList<Vehicle> vehicles = new ArrayList<>();
+//        can add child class objects in parent class aray list
+        vehicles.add(c1);
+        vehicles.add(c2);
+        vehicles.add(redBus);
 
+//        bus can also have a type vehicle
+        Vehicle blueBus = new Bus();
+        blueBus.setColour(COLOUR.Blue);
+//        it's already overridden
+        System.out.println(blueBus.concreteInheritedOverriddenMethod("random"));
+        if (blueBus instanceof Bus) {
+            Bus actualBlueBus = (Bus) blueBus;
+            actualBlueBus.setNumberOfDecks(2);
+            System.out.println(actualBlueBus.getNumberOfDecks());
+        }
+        System.out.println("========================================");
+
+//        polymorphism!!!
+//        runtime type and compile type are different - they always look for the most derived type
+        for (Vehicle v : vehicles) {
+            System.out.println(v);
+            System.out.println(v.concreteInheritedMethod("apple"));
+            System.out.println(v.concreteInheritedOverriddenMethod("overridden pear"));
+//            System.out.println(v.abstractMethod("abstract melon"));
+            washVehicle(v);
+        }
+    }
+
+    public static void washVehicle(Vehicle dirtyVehicle) {
+        System.out.println(dirtyVehicle.abstractMethod("Soap"));
     }
 
     private static void oopWalkThrough() {
@@ -63,8 +130,8 @@ public class App
 
         System.out.println(sheilasCar.stop());
 //        method overloading
-        System.out.println(gracesCar.start());
-        System.out.println(gracesCar.start("Retina scan"));
+//        System.out.println(gracesCar.start());
+//        System.out.println(gracesCar.start("Retina scan"));
 
         Car evelynsCar = new Car("Mini", "Cooper", COLOUR.Red);
         System.out.println(evelynsCar);

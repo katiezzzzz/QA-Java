@@ -1,5 +1,7 @@
 package com.qa;
 
+import com.qa.exceptions.InvalidStateException;
+
 public abstract class Vehicle {
     public Vehicle() {
         this("Unknown", "Unknown", COLOUR.White);
@@ -8,6 +10,7 @@ public abstract class Vehicle {
         this.make = make;
         this.model = model;
         this.colour = colour;
+        this.isStarted = false;
     }
 
     private String make;
@@ -15,6 +18,7 @@ public abstract class Vehicle {
     private COLOUR colour;
     private int age;
     private int speed;
+    private boolean isStarted;
 
     public String getMake() {
 //        e.g. can be used to convert units
@@ -51,14 +55,14 @@ public abstract class Vehicle {
     }
 
     //    BEHAVIOURAL METHODS
-    public String start() {
-        return String.format("The %s car has started", this.getColour().toString().toLowerCase());
-    }
+//    public String start() {
+//        return String.format("The %s car has started", this.getColour().toString().toLowerCase());
+//    }
 
     //    overload the start method by changing signatures
-    public String start(String means) {
-        return String.format("The %s car has started using a %s", this.getColour().toString().toLowerCase(), means);
-    }
+//    public String start(String means) {
+//        return String.format("The %s car has started using a %s", this.getColour().toString().toLowerCase(), means);
+//    }
 
     public String stop(){
         return String.format("The %s car has stopped", this.getColour().toString().toLowerCase());
@@ -75,4 +79,23 @@ public abstract class Vehicle {
 //    abstract methods do not contain implementation code
 //    a single abstract member means your class must also be abstract
     public abstract String abstractMethod(String thing);
+
+    public String start() throws InvalidStateException {
+        if (this.isStarted) {
+            throw new InvalidStateException();
+        }
+        else {
+            this.isStarted = true;
+            return String.format("The %s car has started", this.getColour().toString().toLowerCase());
+        }
+    }
+    public String start(String means) throws InvalidStateException {
+        if(this.isStarted) {
+            throw new InvalidStateException("Trying to start a vehicle with '" + means + "' is not permitted as already started");
+        }
+        else {
+            this.isStarted = true;
+            return String.format("The %s car has started using a %s", this.getColour().toString().toLowerCase(), means);
+        }
+    }
 }

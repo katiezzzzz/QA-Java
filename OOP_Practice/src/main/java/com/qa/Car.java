@@ -1,6 +1,6 @@
 package com.qa;
 
-public class Car extends Vehicle{
+public class Car extends Vehicle implements Alarmable{
 //    CONSTRUCTOR - parameterless constructor by default
     public Car() {
         this("Ford", "Focus", COLOUR.Black);
@@ -66,5 +66,21 @@ public class Car extends Vehicle{
     @Override
     public String abstractMethod(String thing) {
         return "I am a car and this is an abstract method that I have overridden: " + thing;
+    }
+
+    @Override
+    public String turnAlarmOn() {
+        return String.format("The %s %s has its alarm turned on", this.getColour(), this.getMake());
+    }
+
+    @Override
+    public String turnAlarmOff() {
+        return String.format("The %s %s has its alarm turned off", this.getColour(), this.getMake());
+    }
+
+    @Override
+    public String snoozeAlarm() {
+//        return Alarmable.super.snoozeAlarm();
+        return "Car alarm has been paused";
     }
 }
